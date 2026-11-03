@@ -1,0 +1,25 @@
+--- vanta-agent-scripts/install-linux.sh	2026-11-02 21:45:32
++++ proposed/install-linux.sh	2026-11-02 21:46:06
+@@ -127,7 +127,10 @@
+ ##
+ printf "\033[34m\n* Downloading Vanta Device Monitor\n\033[0m"
+ rm -f $PKG_PATH
+-curl --progress-bar --output $PKG_PATH $PKG_URL
++if ! curl --fail --progress-bar --output $PKG_PATH $PKG_URL; then
++    printf "\033[31m Could not download $PKG_URL. Please contact support@vanta.com \033[0m\n"
++    exit 1
++fi
+ 
+ ##
+ # Checksum
+@@ -145,7 +148,9 @@
+   CHECKSUM=""
+ fi
+ 
+-if [ $downloaded_checksum = $CHECKSUM ]; then
++if [ -z "$CHECKSUM" ]; then
++    : # no hashing tool; already warned above
++elif [ "$downloaded_checksum" = "$CHECKSUM" ]; then
+     printf "\033[34mChecksums match.\n\033[0m"
+ else
+     printf "\033[31m Checksums do not match. Please contact support@vanta.com \033[0m\n"
