@@ -10,7 +10,7 @@ expected checksum set to a local fixture's, and a `bin/` directory that is the o
 `PATH`. Real coreutils are symlinked in; `curl`, `sudo`, `dpkg`, `lsb_release`, `sleep` and
 `shasum` are small stubs that log their calls. No root and no network needed.
 
-## What it found (against agent 2.21.0, commit 06ab7c1)
+## What it found (against agent 2.21.0, commit d1dac96)
 
 ```
 $ ./run-tests.sh
